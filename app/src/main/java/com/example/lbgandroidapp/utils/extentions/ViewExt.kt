@@ -31,6 +31,4 @@ fun ImageView.loadImage(
         .placeholder(errorResId)
         .error(errorResId)
         .into(this)
-
-
 }

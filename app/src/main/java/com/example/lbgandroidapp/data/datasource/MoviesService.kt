@@ -1,7 +1,7 @@
-package com.example.lbgandroidapp.data.data_source
+package com.example.lbgandroidapp.data.datasource
 
-import com.example.lbgandroidapp.data.entities.MovieDetailsResDto
-import com.example.lbgandroidapp.data.entities.TopRatedMoviesResDto
+import com.example.lbgandroidapp.data.dto.MovieDetailsResDto
+import com.example.lbgandroidapp.data.dto.TopRatedMoviesResDto
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query

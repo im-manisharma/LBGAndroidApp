@@ -12,11 +12,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.lbgandroidapp.R
-import com.example.lbgandroidapp.data.entities.MovieResultDto
 import com.example.lbgandroidapp.databinding.FragmentTopRatedMoviesBinding
+import com.example.lbgandroidapp.domain.entities.MovieDomainModel
 import com.example.lbgandroidapp.presentation.adapters.TopRatedMoviesAdapter
-import com.example.lbgandroidapp.presentation.viewmodel.TopRatedMoviesUiState
+import com.example.lbgandroidapp.presentation.uistates.TopRatedMoviesUiState
 import com.example.lbgandroidapp.presentation.viewmodel.TopRatedMoviesViewModel
+import com.example.lbgandroidapp.utils.EXTRA_MOVIE_ID
 import com.example.lbgandroidapp.utils.extentions.doGone
 import com.example.lbgandroidapp.utils.extentions.doVisible
 import com.example.lbgandroidapp.utils.extentions.showToastMsg
@@ -50,7 +51,7 @@ class TopRatedMoviesFragment : Fragment() {
         mTopRatedMoviesAdapter = TopRatedMoviesAdapter {
             findNavController().navigate(
                 R.id.action_topRatedMoviesFragment_to_movieDetailsFragment,
-                bundleOf("movie_id" to it)
+                bundleOf(EXTRA_MOVIE_ID to it)
             )
         }
         mBinding.rvTopRatedMovies.adapter = mTopRatedMoviesAdapter
@@ -85,7 +86,7 @@ class TopRatedMoviesFragment : Fragment() {
         }
     }
 
-    private fun showAnimeUI(animeList: List<MovieResultDto>) {
+    private fun showAnimeUI(animeList: List<MovieDomainModel>) {
         mTopRatedMoviesAdapter.submitList(animeList)
     }
 }

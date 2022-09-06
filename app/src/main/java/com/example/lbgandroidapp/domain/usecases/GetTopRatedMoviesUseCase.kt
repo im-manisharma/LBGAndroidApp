@@ -1,7 +1,6 @@
-package com.example.lbgandroidapp.domain.use_cases
+package com.example.lbgandroidapp.domain.usecases
 
 import com.example.lbgandroidapp.domain.repository.MoviesRepository
-import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Inject
 
 class GetTopRatedMoviesUseCase @Inject constructor(

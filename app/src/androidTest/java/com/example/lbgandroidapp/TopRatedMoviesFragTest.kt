@@ -8,7 +8,7 @@ import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
-import com.example.lbgandroidapp.presentation.adapters.TopRatedMoviesAdapter.MoviesViewHolder
+import com.example.lbgandroidapp.presentation.adapters.MoviesViewHolder
 import com.example.lbgandroidapp.presentation.view.MainActivity
 import org.junit.Rule
 import org.junit.Test

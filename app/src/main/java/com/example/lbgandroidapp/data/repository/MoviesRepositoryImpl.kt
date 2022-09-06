@@ -1,21 +1,20 @@
 package com.example.lbgandroidapp.data.repository
 
-import com.example.lbgandroidapp.data.data_source.MoviesService
-import com.example.lbgandroidapp.data.entities.MovieResultDto
+import com.example.lbgandroidapp.data.datasource.MoviesService
+import com.example.lbgandroidapp.data.mappers.MovieApiDataMapper
+import com.example.lbgandroidapp.domain.entities.MovieDomainModel
 import com.example.lbgandroidapp.domain.repository.MoviesRepository
 import com.example.lbgandroidapp.utils.Result
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 
 class MoviesRepositoryImpl(
-    private val apiService: MoviesService
+    private val apiService: MoviesService,
+    private val mapper: MovieApiDataMapper
 ) : MoviesRepository {
     override suspend fun getTopRatedMovies(
         apiKey: String
-    ): Result<List<MovieResultDto>> = try {
+    ): Result<List<MovieDomainModel>> = try {
         val response = apiService.getTopRatedMovies(apiKey)
-        Result.Success(response.results?: arrayListOf())
+        Result.Success(mapper.toMovieDomainModelList(response.results?: listOf()))
     } catch (e: Exception) {
         Result.Error(e)
     }

@@ -7,7 +7,7 @@
 
         <variable
             name="data"
-            type="com.example.lbgandroidapp.domain.entities.MovieDetailsUiDto" />
+            type="com.example.lbgandroidapp.domain.entities.MovieDetailsDomainModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

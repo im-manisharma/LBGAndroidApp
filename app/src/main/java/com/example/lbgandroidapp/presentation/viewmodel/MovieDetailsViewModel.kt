@@ -2,11 +2,10 @@ package com.example.lbgandroidapp.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.lbgandroidapp.data.entities.MovieDetailsResDto
 import com.example.lbgandroidapp.di.ApiKey
 import com.example.lbgandroidapp.di.IoDispatcher
-import com.example.lbgandroidapp.domain.entities.MovieDetailsUiDto
-import com.example.lbgandroidapp.domain.use_cases.MovieDetailsUseCase
+import com.example.lbgandroidapp.domain.usecases.MovieDetailsUseCase
+import com.example.lbgandroidapp.presentation.uistates.MovieDetailsUiState
 import com.example.lbgandroidapp.utils.Result
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
@@ -24,7 +23,7 @@ class MovieDetailsViewModel @Inject constructor(
     var movieId: Int = 0
 
     // Backing property to avoid state updates from other classes
-    private val _uiState = MutableStateFlow<MovieDetailsUiState>(MovieDetailsUiState.Success(MovieDetailsUiDto()))
+    private val _uiState = MutableStateFlow<MovieDetailsUiState>(MovieDetailsUiState.Loading)
     // The UI collects from this StateFlow to get its state updates
     val uiState: StateFlow<MovieDetailsUiState> = _uiState
 
@@ -41,11 +40,4 @@ class MovieDetailsViewModel @Inject constructor(
             }
         }
     }
-}
-
-// Represents different states for the AllAnime screen
-sealed class MovieDetailsUiState {
-    object Loading: MovieDetailsUiState()
-    data class Success(val data: MovieDetailsUiDto): MovieDetailsUiState()
-    data class Error(val message: String?): MovieDetailsUiState()
 }

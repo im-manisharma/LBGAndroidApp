@@ -1,6 +1,6 @@
 package com.example.lbgandroidapp.domain.entities
 
-data class MovieDetailsUiDto(
+data class MovieDetailsDomainModel(
     var genres: String = "",
     var release_date: String = "",
     var runtime: Int = 0,

@@ -1,7 +1,7 @@
-package com.example.lbgandroidapp.use_cases
+package com.example.lbgandroidapp.usecases
 
 import com.example.lbgandroidapp.domain.repository.MoviesRepository
-import com.example.lbgandroidapp.domain.use_cases.GetTopRatedMoviesUseCase
+import com.example.lbgandroidapp.domain.usecases.GetTopRatedMoviesUseCase
 import com.example.lbgandroidapp.utils.Result
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery

@@ -1,8 +1,9 @@
 package com.example.lbgandroidapp.viewmodel
 
-import com.example.lbgandroidapp.data.entities.MovieResultDto
-import com.example.lbgandroidapp.domain.use_cases.GetTopRatedMoviesUseCase
-import com.example.lbgandroidapp.presentation.viewmodel.TopRatedMoviesUiState
+import com.example.lbgandroidapp.data.dto.MovieResultDto
+import com.example.lbgandroidapp.domain.entities.MovieDomainModel
+import com.example.lbgandroidapp.domain.usecases.GetTopRatedMoviesUseCase
+import com.example.lbgandroidapp.presentation.uistates.TopRatedMoviesUiState
 import com.example.lbgandroidapp.presentation.viewmodel.TopRatedMoviesViewModel
 import com.example.lbgandroidapp.utils.Result
 import io.mockk.MockKAnnotations
@@ -43,8 +44,8 @@ class TopRatedMoviesViewModelTest {
     @Test
     fun `when apiCalled, return success`() = runBlocking {
         coEvery { mGetTopRatedMoviesUseCase.invoke("api_key") } returns Result.Success(listOf(
-            MovieResultDto(title = "abcd"),
-            MovieResultDto(title = "efgh")
+            MovieDomainModel(title = "abcd"),
+            MovieDomainModel(title = "efgh")
         ))
 
         mTopRatedMoviesViewModel.getTopRatedMovies()

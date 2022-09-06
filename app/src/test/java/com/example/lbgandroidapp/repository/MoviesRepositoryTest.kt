@@ -1,8 +1,9 @@
 package com.example.lbgandroidapp.repository
 
-import com.example.lbgandroidapp.data.data_source.MoviesService
-import com.example.lbgandroidapp.data.entities.MovieResultDto
-import com.example.lbgandroidapp.data.entities.TopRatedMoviesResDto
+import com.example.lbgandroidapp.data.datasource.MoviesService
+import com.example.lbgandroidapp.data.dto.MovieResultDto
+import com.example.lbgandroidapp.data.dto.TopRatedMoviesResDto
+import com.example.lbgandroidapp.data.mappers.MovieApiDataMapper
 import com.example.lbgandroidapp.data.repository.MoviesRepositoryImpl
 import com.example.lbgandroidapp.utils.Result
 import io.mockk.MockKAnnotations
@@ -19,7 +20,7 @@ class MoviesRepositoryTest {
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
-        moviesRepository = MoviesRepositoryImpl(mMoviesService)
+        moviesRepository = MoviesRepositoryImpl(mMoviesService, MovieApiDataMapper())
     }
 
     @Test

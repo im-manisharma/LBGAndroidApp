@@ -10,12 +10,11 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.lbgandroidapp.R
-import com.example.lbgandroidapp.data.entities.MovieDetailsResDto
 import com.example.lbgandroidapp.databinding.FragmentMovieDetailsBinding
-import com.example.lbgandroidapp.domain.entities.MovieDetailsUiDto
-import com.example.lbgandroidapp.presentation.viewmodel.MovieDetailsUiState
+import com.example.lbgandroidapp.domain.entities.MovieDetailsDomainModel
+import com.example.lbgandroidapp.presentation.uistates.MovieDetailsUiState
 import com.example.lbgandroidapp.presentation.viewmodel.MovieDetailsViewModel
-import com.example.lbgandroidapp.utils.BASE_IMAGE_URL
+import com.example.lbgandroidapp.utils.EXTRA_MOVIE_ID
 import com.example.lbgandroidapp.utils.extentions.doGone
 import com.example.lbgandroidapp.utils.extentions.doVisible
 import com.example.lbgandroidapp.utils.extentions.loadImage
@@ -43,7 +42,7 @@ class MovieDetailsFragment : Fragment() {
 
         inItObserver()
 
-        arguments?.getInt("movie_id")?.run {
+        arguments?.getInt(EXTRA_MOVIE_ID)?.run {
             mViewModel.movieId = this
             mViewModel.getMovieDetails()
         }
@@ -78,8 +77,8 @@ class MovieDetailsFragment : Fragment() {
         }
     }
 
-    private fun populateUi(movieDetailsUiDto: MovieDetailsUiDto){
-        movieDetailsUiDto.let {
+    private fun populateUi(movieDetailsDomainModel: MovieDetailsDomainModel){
+        movieDetailsDomainModel.let {
             mBinding.data = it
             mBinding.imageView.loadImage(it.image, R.drawable.ic_launcher_background)
             mBinding.executePendingBindings()

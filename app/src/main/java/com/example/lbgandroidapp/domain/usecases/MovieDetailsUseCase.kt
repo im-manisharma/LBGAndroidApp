@@ -1,7 +1,6 @@
-package com.example.lbgandroidapp.domain.use_cases
+package com.example.lbgandroidapp.domain.usecases
 
 import com.example.lbgandroidapp.domain.repository.MovieDetailsRepository
-import com.example.lbgandroidapp.domain.repository.MoviesRepository
 import javax.inject.Inject
 
 class MovieDetailsUseCase @Inject constructor(

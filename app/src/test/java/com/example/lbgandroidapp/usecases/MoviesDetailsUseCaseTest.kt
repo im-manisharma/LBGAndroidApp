@@ -1,10 +1,8 @@
-package com.example.lbgandroidapp.use_cases
+package com.example.lbgandroidapp.usecases
 
-import com.example.lbgandroidapp.data.entities.MovieDetailsResDto
-import com.example.lbgandroidapp.domain.entities.MovieDetailsUiDto
+import com.example.lbgandroidapp.domain.entities.MovieDetailsDomainModel
 import com.example.lbgandroidapp.domain.repository.MovieDetailsRepository
-import com.example.lbgandroidapp.domain.use_cases.MovieDetailsUseCase
-import com.example.lbgandroidapp.presentation.viewmodel.MovieDetailsUiState
+import com.example.lbgandroidapp.domain.usecases.MovieDetailsUseCase
 import com.example.lbgandroidapp.utils.Result
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
@@ -27,7 +25,7 @@ class MoviesDetailsUseCaseTest {
     @Test
     fun `when invoke called, return success`() = runBlocking {
         coEvery { mMovieDetailsRepo.getMovieDetails("api_key", 123) } returns Result.Success(
-            MovieDetailsUiDto()
+            MovieDetailsDomainModel()
         )
         val res = mMoviesDetailsUseCaseTest.invoke("api_key", 123)
         assert(res is Result.Success)

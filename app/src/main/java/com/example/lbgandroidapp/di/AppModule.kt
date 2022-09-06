@@ -2,8 +2,8 @@ package com.example.lbgandroidapp.di
 
 import android.content.Context
 import com.example.lbgandroidapp.R
-import com.example.lbgandroidapp.data.data_source.MoviesService
-import com.example.lbgandroidapp.data.mappers.MovieDetailApiDataMapper
+import com.example.lbgandroidapp.data.datasource.MoviesService
+import com.example.lbgandroidapp.data.mappers.MovieApiDataMapper
 import com.example.lbgandroidapp.data.repository.MovieDetailsRepositoryImpl
 import com.example.lbgandroidapp.data.repository.MoviesRepositoryImpl
 import com.example.lbgandroidapp.domain.repository.MovieDetailsRepository
@@ -80,14 +80,15 @@ class ApplicationModule {
     @Singleton
     @Provides
     fun provideMoviesRepository(
-        api: MoviesService
-    ): MoviesRepository = MoviesRepositoryImpl(api)
+        api: MoviesService,
+        mapper: MovieApiDataMapper
+    ): MoviesRepository = MoviesRepositoryImpl(api, mapper)
 
     @Singleton
     @Provides
     fun provideMovieDetailsRepository(
         api: MoviesService,
-        mapper: MovieDetailApiDataMapper
+        mapper: MovieApiDataMapper
     ): MovieDetailsRepository = MovieDetailsRepositoryImpl(api, mapper)
 
     @DefaultDispatcher

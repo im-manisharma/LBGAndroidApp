@@ -1,14 +1,9 @@
 package com.example.lbgandroidapp.viewmodel
 
-import com.example.lbgandroidapp.data.entities.MovieDetailsResDto
-import com.example.lbgandroidapp.data.entities.MovieResultDto
-import com.example.lbgandroidapp.domain.entities.MovieDetailsUiDto
-import com.example.lbgandroidapp.domain.use_cases.GetTopRatedMoviesUseCase
-import com.example.lbgandroidapp.domain.use_cases.MovieDetailsUseCase
-import com.example.lbgandroidapp.presentation.viewmodel.MovieDetailsUiState
+import com.example.lbgandroidapp.domain.entities.MovieDetailsDomainModel
+import com.example.lbgandroidapp.domain.usecases.MovieDetailsUseCase
+import com.example.lbgandroidapp.presentation.uistates.MovieDetailsUiState
 import com.example.lbgandroidapp.presentation.viewmodel.MovieDetailsViewModel
-import com.example.lbgandroidapp.presentation.viewmodel.TopRatedMoviesUiState
-import com.example.lbgandroidapp.presentation.viewmodel.TopRatedMoviesViewModel
 import com.example.lbgandroidapp.utils.Result
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
@@ -18,7 +13,6 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.resetMain
-import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 import org.junit.After
 import org.junit.Before
@@ -49,7 +43,7 @@ class MovieDetailsViewModelTest {
     @Test
     fun `when apiCalled, return success`() = runBlocking {
         coEvery { mMovieDetailsUseCase.invoke("api_key", 123) } returns Result.Success(
-            MovieDetailsUiDto()
+            MovieDetailsDomainModel()
         )
         mMovieDetailsViewModel.movieId = 123
         mMovieDetailsViewModel.getMovieDetails()
