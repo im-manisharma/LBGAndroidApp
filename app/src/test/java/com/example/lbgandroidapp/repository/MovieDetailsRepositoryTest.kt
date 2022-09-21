@@ -13,18 +13,18 @@ import org.junit.Before
 import org.junit.Test
 
 class MovieDetailsRepositoryTest {
-    private val mMoviesService = mockk<MoviesService>(relaxed = true)
+    private val moviesService = mockk<MoviesService>(relaxed = true)
     private lateinit var movieDetailsRepository: MovieDetailsRepositoryImpl
 
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
-        movieDetailsRepository = MovieDetailsRepositoryImpl(mMoviesService, MovieApiDataMapper())
+        movieDetailsRepository = MovieDetailsRepositoryImpl(moviesService, MovieApiDataMapper())
     }
 
     @Test
     fun `when getMovieDetailsApi is called, return success`() = runBlocking {
-        coEvery { mMoviesService.getMovieDetails(123, "api_key") } returns MovieDetailsResDto(
+        coEvery { moviesService.getMovieDetails(123, "api_key") } returns MovieDetailsResDto(
             id = 123,
             title = "IronMan",
         )
@@ -35,7 +35,7 @@ class MovieDetailsRepositoryTest {
 
     @Test
     fun `when getMovieDetailsApi is called, return error`() = runBlocking {
-        coEvery { mMoviesService.getMovieDetails(123, "api_key") } throws IllegalStateException("Server Error")
+        coEvery { moviesService.getMovieDetails(123, "api_key") } throws IllegalStateException("Server Error")
         try {
             movieDetailsRepository.getMovieDetails("api_key", 123)
         }catch (e: Exception){

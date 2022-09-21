@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">LBGAndroidApp</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="tmdb_api_key">538d095d4872d7a54b9a2329921e9850</string>
     <string name="release_date_text">Release Date: %s</string>
     <string name="rating_text">Rating: %s</string>
     <string name="rating_count_text">Rating Count: %s</string>

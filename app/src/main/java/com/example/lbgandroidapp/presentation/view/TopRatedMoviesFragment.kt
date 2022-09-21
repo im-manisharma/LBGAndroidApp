@@ -26,9 +26,9 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class TopRatedMoviesFragment : Fragment() {
-    private lateinit var mBinding: FragmentTopRatedMoviesBinding
-    private val mViewModel: TopRatedMoviesViewModel by viewModels()
-    private lateinit var mTopRatedMoviesAdapter: TopRatedMoviesAdapter
+    private lateinit var binding: FragmentTopRatedMoviesBinding
+    private val viewModel: TopRatedMoviesViewModel by viewModels()
+    private lateinit var topRatedMoviesAdapter: TopRatedMoviesAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,8 +36,8 @@ class TopRatedMoviesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        mBinding = FragmentTopRatedMoviesBinding.inflate(inflater, container, false)
-        return mBinding.root
+        binding = FragmentTopRatedMoviesBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -48,13 +48,13 @@ class TopRatedMoviesFragment : Fragment() {
     }
 
     private fun inItAdapter(){
-        mTopRatedMoviesAdapter = TopRatedMoviesAdapter {
+        topRatedMoviesAdapter = TopRatedMoviesAdapter {
             findNavController().navigate(
                 R.id.action_topRatedMoviesFragment_to_movieDetailsFragment,
                 bundleOf(EXTRA_MOVIE_ID to it)
             )
         }
-        mBinding.rvTopRatedMovies.adapter = mTopRatedMoviesAdapter
+        binding.rvTopRatedMovies.adapter = topRatedMoviesAdapter
     }
 
     private fun inItObserver() {
@@ -66,19 +66,19 @@ class TopRatedMoviesFragment : Fragment() {
                 // Trigger the flow and start listening for values.
                 // Note that this happens when lifecycle is STARTED and stops
                 // collecting when the lifecycle is STOPPED
-                mViewModel.uiState.collect { uiState ->
+                viewModel.uiState.collect { uiState ->
                     // New value received
                     when (uiState) {
                         is TopRatedMoviesUiState.Success -> {
-                            mBinding.progressBarLayout.progressBar.doGone()
+                            binding.progressBarLayout.progressBar.doGone()
                             showAnimeUI(uiState.movieList)
                         }
                         is TopRatedMoviesUiState.Error -> {
                             requireContext().showToastMsg(uiState.message)
-                            mBinding.progressBarLayout.progressBar.doGone()
+                            binding.progressBarLayout.progressBar.doGone()
                         }
                         is TopRatedMoviesUiState.Loading -> {
-                            mBinding.progressBarLayout.progressBar.doVisible()
+                            binding.progressBarLayout.progressBar.doVisible()
                         }
                     }
                 }
@@ -87,6 +87,6 @@ class TopRatedMoviesFragment : Fragment() {
     }
 
     private fun showAnimeUI(animeList: List<MovieDomainModel>) {
-        mTopRatedMoviesAdapter.submitList(animeList)
+        topRatedMoviesAdapter.submitList(animeList)
     }
 }

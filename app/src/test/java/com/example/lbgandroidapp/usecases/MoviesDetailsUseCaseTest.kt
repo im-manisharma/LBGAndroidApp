@@ -13,30 +13,30 @@ import org.junit.Test
 import java.lang.Exception
 
 class MoviesDetailsUseCaseTest {
-    private val mMovieDetailsRepo = mockk<MovieDetailsRepository>(relaxed = true)
-    private lateinit var mMoviesDetailsUseCaseTest: MovieDetailsUseCase
+    private val movieDetailsRepo = mockk<MovieDetailsRepository>(relaxed = true)
+    private lateinit var moviesDetailsUseCaseTest: MovieDetailsUseCase
 
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
-        mMoviesDetailsUseCaseTest = MovieDetailsUseCase(mMovieDetailsRepo)
+        moviesDetailsUseCaseTest = MovieDetailsUseCase(movieDetailsRepo)
     }
 
     @Test
     fun `when invoke called, return success`() = runBlocking {
-        coEvery { mMovieDetailsRepo.getMovieDetails("api_key", 123) } returns Result.Success(
+        coEvery { movieDetailsRepo.getMovieDetails("api_key", 123) } returns Result.Success(
             MovieDetailsDomainModel()
         )
-        val res = mMoviesDetailsUseCaseTest.invoke("api_key", 123)
+        val res = moviesDetailsUseCaseTest.invoke("api_key", 123)
         assert(res is Result.Success)
     }
 
     @Test
     fun `when invoke called, return error`() = runBlocking {
-        coEvery { mMovieDetailsRepo.getMovieDetails("api_key", 123) } returns Result.Error(
+        coEvery { movieDetailsRepo.getMovieDetails("api_key", 123) } returns Result.Error(
             Exception("error_message")
         )
-        val res = mMoviesDetailsUseCaseTest.invoke("api_key", 123)
+        val res = moviesDetailsUseCaseTest.invoke("api_key", 123)
         assert(res is Result.Error)
     }
 }

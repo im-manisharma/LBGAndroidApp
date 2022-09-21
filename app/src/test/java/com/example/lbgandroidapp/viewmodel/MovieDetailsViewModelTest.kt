@@ -21,15 +21,15 @@ import org.junit.Test
 @OptIn(ExperimentalCoroutinesApi::class)
 class MovieDetailsViewModelTest {
     private val testDispatcher = UnconfinedTestDispatcher()
-    lateinit var mMovieDetailsViewModel: MovieDetailsViewModel
-    private val mMovieDetailsUseCase=  mockk<MovieDetailsUseCase>(relaxed = true)
+    lateinit var movieDetailsViewModel: MovieDetailsViewModel
+    private val movieDetailsUseCase=  mockk<MovieDetailsUseCase>(relaxed = true)
 
     @Before
     fun setup() {
         MockKAnnotations.init(this)
         Dispatchers.setMain(testDispatcher)
-        mMovieDetailsViewModel = MovieDetailsViewModel(
-            mMovieDetailsUseCase,
+        movieDetailsViewModel = MovieDetailsViewModel(
+            movieDetailsUseCase,
             testDispatcher,
             "api_key"
         )
@@ -42,23 +42,23 @@ class MovieDetailsViewModelTest {
 
     @Test
     fun `when apiCalled, return success`() = runBlocking {
-        coEvery { mMovieDetailsUseCase.invoke("api_key", 123) } returns Result.Success(
+        coEvery { movieDetailsUseCase.invoke("api_key", 123) } returns Result.Success(
             MovieDetailsDomainModel()
         )
-        mMovieDetailsViewModel.movieId = 123
-        mMovieDetailsViewModel.getMovieDetails()
+        movieDetailsViewModel.movieId = 123
+        movieDetailsViewModel.getMovieDetails()
 
-        assert(mMovieDetailsViewModel.uiState.value is MovieDetailsUiState.Success)
+        assert(movieDetailsViewModel.uiState.value is MovieDetailsUiState.Success)
     }
 
     @Test
     fun `when apiCalled, return error`() = runBlocking {
-        coEvery { mMovieDetailsUseCase.invoke("api_key", 123) } returns Result.Error(
+        coEvery { movieDetailsUseCase.invoke("api_key", 123) } returns Result.Error(
             Exception("error message")
         )
-        mMovieDetailsViewModel.movieId = 123
-        mMovieDetailsViewModel.getMovieDetails()
+        movieDetailsViewModel.movieId = 123
+        movieDetailsViewModel.getMovieDetails()
 
-        assert(mMovieDetailsViewModel.uiState.value is MovieDetailsUiState.Error)
+        assert(movieDetailsViewModel.uiState.value is MovieDetailsUiState.Error)
     }
 }

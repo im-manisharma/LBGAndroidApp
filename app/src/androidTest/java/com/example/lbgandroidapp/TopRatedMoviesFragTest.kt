@@ -17,9 +17,6 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4ClassRunner::class)
 class TopRatedMoviesFragTest {
 
-    @get: Rule
-    var mActivityRule = ActivityScenarioRule(MainActivity::class.java)
-
     @Test
     fun isTopRatedMoviesFragmentVisible_onAppLaunch(){
         onView(withId(R.id.rvTopRatedMovies)).check(matches(isDisplayed()))

@@ -24,8 +24,8 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MovieDetailsFragment : Fragment() {
-    private lateinit var mBinding: FragmentMovieDetailsBinding
-    private val mViewModel: MovieDetailsViewModel by viewModels()
+    private lateinit var binding: FragmentMovieDetailsBinding
+    private val viewModel: MovieDetailsViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,8 +33,8 @@ class MovieDetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        mBinding = FragmentMovieDetailsBinding.inflate(inflater, container, false)
-        return mBinding.root
+        binding = FragmentMovieDetailsBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -43,8 +43,8 @@ class MovieDetailsFragment : Fragment() {
         inItObserver()
 
         arguments?.getInt(EXTRA_MOVIE_ID)?.run {
-            mViewModel.movieId = this
-            mViewModel.getMovieDetails()
+            viewModel.movieId = this
+            viewModel.getMovieDetails()
         }
     }
 
@@ -57,19 +57,19 @@ class MovieDetailsFragment : Fragment() {
                 // Trigger the flow and start listening for values.
                 // Note that this happens when lifecycle is STARTED and stops
                 // collecting when the lifecycle is STOPPED
-                mViewModel.uiState.collect { uiState ->
+                viewModel.uiState.collect { uiState ->
                     // New value received
                     when (uiState) {
                         is MovieDetailsUiState.Success -> {
                             populateUi(uiState.data)
-                            mBinding.progressBarLayout.progressBar.doGone()
+                            binding.progressBarLayout.progressBar.doGone()
                         }
                         is MovieDetailsUiState.Error -> {
                             requireContext().showToastMsg(uiState.message)
-                            mBinding.progressBarLayout.progressBar.doGone()
+                            binding.progressBarLayout.progressBar.doGone()
                         }
                         is MovieDetailsUiState.Loading -> {
-                            mBinding.progressBarLayout.progressBar.doVisible()
+                            binding.progressBarLayout.progressBar.doVisible()
                         }
                     }
                 }
@@ -79,9 +79,9 @@ class MovieDetailsFragment : Fragment() {
 
     private fun populateUi(movieDetailsDomainModel: MovieDetailsDomainModel){
         movieDetailsDomainModel.let {
-            mBinding.data = it
-            mBinding.imageView.loadImage(it.image, R.drawable.ic_launcher_background)
-            mBinding.executePendingBindings()
+            binding.data = it
+            binding.imageView.loadImage(it.image, R.drawable.ic_launcher_background)
+            binding.executePendingBindings()
         }
     }
 }

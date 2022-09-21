@@ -22,15 +22,15 @@ import org.junit.Test
 @OptIn(ExperimentalCoroutinesApi::class)
 class TopRatedMoviesViewModelTest {
     private val testDispatcher = UnconfinedTestDispatcher()
-    lateinit var mTopRatedMoviesViewModel: TopRatedMoviesViewModel
-    private val mGetTopRatedMoviesUseCase=  mockk<GetTopRatedMoviesUseCase>(relaxed = true)
+    lateinit var topRatedMoviesViewModel: TopRatedMoviesViewModel
+    private val getTopRatedMoviesUseCase=  mockk<GetTopRatedMoviesUseCase>(relaxed = true)
 
     @Before
     fun setup() {
         MockKAnnotations.init(this)
         Dispatchers.setMain(testDispatcher)
-        mTopRatedMoviesViewModel = TopRatedMoviesViewModel(
-            mGetTopRatedMoviesUseCase,
+        topRatedMoviesViewModel = TopRatedMoviesViewModel(
+            getTopRatedMoviesUseCase,
             testDispatcher,
             "api_key"
         )
@@ -43,19 +43,19 @@ class TopRatedMoviesViewModelTest {
 
     @Test
     fun `when apiCalled, return success`() = runBlocking {
-        coEvery { mGetTopRatedMoviesUseCase.invoke("api_key") } returns Result.Success(listOf(
+        coEvery { getTopRatedMoviesUseCase.invoke("api_key") } returns Result.Success(listOf(
             MovieDomainModel(title = "abcd"),
             MovieDomainModel(title = "efgh")
         ))
 
-        mTopRatedMoviesViewModel.getTopRatedMovies()
-        assert(mTopRatedMoviesViewModel.uiState.value is TopRatedMoviesUiState.Success)
+        topRatedMoviesViewModel.getTopRatedMovies()
+        assert(topRatedMoviesViewModel.uiState.value is TopRatedMoviesUiState.Success)
     }
 
     @Test
     fun `when apiCalled, return error`() = runBlocking {
-        coEvery { mGetTopRatedMoviesUseCase.invoke("api_key") } returns Result.Error(Exception("error message"))
-        mTopRatedMoviesViewModel.getTopRatedMovies()
-        assert(mTopRatedMoviesViewModel.uiState.value is TopRatedMoviesUiState.Error)
+        coEvery { getTopRatedMoviesUseCase.invoke("api_key") } returns Result.Error(Exception("error message"))
+        topRatedMoviesViewModel.getTopRatedMovies()
+        assert(topRatedMoviesViewModel.uiState.value is TopRatedMoviesUiState.Error)
     }
 }

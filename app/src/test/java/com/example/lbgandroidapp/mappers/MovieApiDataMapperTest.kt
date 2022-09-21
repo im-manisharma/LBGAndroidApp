@@ -14,11 +14,11 @@ import org.junit.Test
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class MovieApiDataMapperTest {
-    private val mMapper = mockk<MovieApiDataMapper>(relaxed = true)
+    private val mapper = mockk<MovieApiDataMapper>(relaxed = true)
 
     @Test
     fun `test toMovieDetailsUiDto function`() = runTest {
-        every { mMapper.toMovieDetailsUiDto(
+        every { mapper.toMovieDetailsUiDto(
             MovieDetailsResDto(
                 genres = listOf(
                     Genre(name = "Drama"),
@@ -29,7 +29,7 @@ class MovieApiDataMapperTest {
             genres = "Drama, Crime"
         )
 
-        val res = mMapper.toMovieDetailsUiDto(
+        val res = mapper.toMovieDetailsUiDto(
             MovieDetailsResDto(
                 genres = listOf(
                     Genre(name = "Drama"),
@@ -42,7 +42,7 @@ class MovieApiDataMapperTest {
 
     @Test
     fun `test toMovieDomainModelList function`() = runTest {
-        every { mMapper.toMovieDomainModelList(
+        every { mapper.toMovieDomainModelList(
             list = listOf(
                 MovieResultDto(
                     title = "IronMan",
@@ -64,7 +64,7 @@ class MovieApiDataMapperTest {
             )
         )
 
-        val res = mMapper.toMovieDomainModelList(
+        val res = mapper.toMovieDomainModelList(
             list = listOf(
                 MovieResultDto(
                     title = "IronMan",
